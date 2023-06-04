@@ -7,7 +7,9 @@ export function ComponentPicker() {
   const [componentToAdd, setComponentToAdd] = useState<Component['type']>();
 
   const changeComponentToAdd = useCallback((type?: Component['type']) => () => {
-    setComponentToAdd(type);
+    setComponentToAdd(currentType => {
+      return currentType === type ? undefined : type;
+    });
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import Card from "./Card";
 import { ImageReploComponent } from "../src/types";
 import { ReploComponentForm } from "./forms/ReploComponentForm";
@@ -6,13 +6,23 @@ import { ReploComponentHeader } from "./ReploComponentHeader";
 
 const Image: React.FC<{ component: ImageReploComponent }> = ({ component }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [imageSrc, setImageSrc] = useState(component.src);
+
+  useEffect(() => {
+    setImageSrc(component.src)
+  }, [component.src]);
+
+  const onImageFailedLoading = useCallback(() => {
+    setImageSrc('https://placehold.co/200x300?text=Image+Error')
+  }, []);
 
   return (
     <Card>
       <ReploComponentHeader title="Image" onEdit={() => setIsEditing(editing => !editing)} />
 
       <img
-        src={component.src}
+        onError={onImageFailedLoading}
+        src={imageSrc}
         alt="Image"
         style={{
           width: "100px",
@@ -23,7 +33,7 @@ const Image: React.FC<{ component: ImageReploComponent }> = ({ component }) => {
       />
 
       {isEditing && (
-        <div>
+        <div className="pt-3">
           <ReploComponentForm
             type={component.type}
             id={component.id}

@@ -13,7 +13,7 @@ const Text: React.FC<{ component: TextReploComponent }> = ({ component }) => {
       <p>{component.text}</p>
 
       {isEditing && (
-        <div>
+        <div className="pt-3">
           <ReploComponentForm
             type={component.type}
             id={component.id}

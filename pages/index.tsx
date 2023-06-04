@@ -15,27 +15,29 @@ const Home: NextPage = () => {
   return (
     <>
       <ComponentPicker />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "12px",
-          padding: "12px",
-          width: "400px",
-          fontFamily: "Roboto, sans-serif",
-          margin: "0 auto",
-        }}
-      >
-        {data.map((component) => {
-          if (component.type === "text") {
-            return <Text key={component.id} component={component} />;
-          }
-          if (component.type === "image") {
-            return <Image key={component.id} component={component} />;
-          }
+      <div className="pt-10 md:pt-0">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "12px",
+            padding: "12px",
+            width: "400px",
+            fontFamily: "Roboto, sans-serif",
+            margin: "0 auto",
+          }}
+        >
+          {data.map((component) => {
+            if (component.type === "text") {
+              return <Text key={component.id} component={component} />;
+            }
+            if (component.type === "image") {
+              return <Image key={component.id} component={component} />;
+            }
 
-          return null;
-        })}
+            return null;
+          })}
+        </div>
       </div>
     </>
   );
