@@ -1,20 +1,23 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import Card from "./Card";
 import { ImageReploComponent } from "../src/types";
 import { ReploComponentForm } from "./forms/ReploComponentForm";
 import { ReploComponentHeader } from "./ReploComponentHeader";
 
 const Image: React.FC<{ component: ImageReploComponent }> = ({ component }) => {
+  const lastFailedRef = useRef('');
   const [isEditing, setIsEditing] = useState(false);
   const [imageSrc, setImageSrc] = useState(component.src);
 
   useEffect(() => {
-    setImageSrc(component.src)
+    if (lastFailedRef.current === component.src) return;
+    setImageSrc(component.src);
   }, [component.src]);
 
   const onImageFailedLoading = useCallback(() => {
+    lastFailedRef.current = component.src;
     setImageSrc('https://placehold.co/200x300?text=Image+Error')
-  }, []);
+  }, [component.src]);
 
   return (
     <Card>
