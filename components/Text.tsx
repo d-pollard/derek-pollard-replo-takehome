@@ -1,27 +1,18 @@
-import React, {useState} from "react";
+import React from "react";
 import Card from "./Card";
 import { TextReploComponent } from "../src/types";
-import { ReploComponentHeader } from "./ReploComponentHeader";
-import { ReploComponentForm } from "./forms/ReploComponentForm";
+import {useSharedReploComponentDisplay} from "../src/hooks/useSharedReploComponentDisplay";
 
 const Text: React.FC<{ component: TextReploComponent }> = ({ component }) => {
-  const [isEditing, setIsEditing] = useState(false);
+  const { header, footer } = useSharedReploComponentDisplay({component, title: 'Text'});
 
   return (
     <Card>
-      <ReploComponentHeader title="Text" onEdit={() => setIsEditing(editing => !editing)} />
+      {header}
+
       <p>{component.text}</p>
 
-      {isEditing && (
-        <div className="pt-3">
-          <ReploComponentForm
-            type={component.type}
-            id={component.id}
-            currentValue={component.text}
-            onFinish={() => setIsEditing(false)}
-          />
-        </div>
-      )}
+      {footer}
     </Card>
   );
 };

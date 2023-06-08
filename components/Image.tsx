@@ -1,13 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Card from "./Card";
 import { ImageReploComponent } from "../src/types";
-import { ReploComponentForm } from "./forms/ReploComponentForm";
-import { ReploComponentHeader } from "./ReploComponentHeader";
+import { useSharedReploComponentDisplay } from "../src/hooks/useSharedReploComponentDisplay";
 
 const Image: React.FC<{ component: ImageReploComponent }> = ({ component }) => {
   const lastFailedRef = useRef('');
-  const [isEditing, setIsEditing] = useState(false);
   const [imageSrc, setImageSrc] = useState(component.src);
+  const { header, footer } = useSharedReploComponentDisplay({ title: 'Image', component });
 
   useEffect(() => {
     if (lastFailedRef.current === component.src) return;
@@ -21,7 +20,7 @@ const Image: React.FC<{ component: ImageReploComponent }> = ({ component }) => {
 
   return (
     <Card>
-      <ReploComponentHeader title="Image" onEdit={() => setIsEditing(editing => !editing)} />
+      {header}
 
       <img
         onError={onImageFailedLoading}
@@ -35,16 +34,7 @@ const Image: React.FC<{ component: ImageReploComponent }> = ({ component }) => {
         }}
       />
 
-      {isEditing && (
-        <div className="pt-3">
-          <ReploComponentForm
-            type={component.type}
-            id={component.id}
-            currentValue={component.src}
-            onFinish={() => setIsEditing(false)}
-          />
-        </div>
-      )}
+      {footer}
     </Card>
   );
 };

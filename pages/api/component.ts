@@ -70,6 +70,17 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     writeFileSync(`${process.cwd()}/database.json`, JSON.stringify(content), "utf8")
 
     res.status(200).json({});
+  } else if (req.method === "DELETE") {
+    const content = JSON.parse(
+      readFileSync(`${process.cwd()}/database.json`, "utf8")
+    ) as Component[];
+
+    const id = (req.body.id as string) || 'unknown';
+    const mutatedContent = content.filter(target => target.id !== id);
+    writeFileSync(`${process.cwd()}/database.json`, JSON.stringify(mutatedContent), "utf8")
+
+    res.status(200).json({});
+
   } else {
     res.status(404).json({ message: "Not found" });
   }
