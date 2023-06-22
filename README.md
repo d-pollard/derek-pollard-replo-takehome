@@ -18,11 +18,9 @@ Good luck and happy job hunting!
 
 ## The email, make it make sense
 
-Yuxin Zhu
-	
+**Yuxin Zhu**	
 Tue, Jun 20, 5:01 PM (1 day ago)
 	
-to me, Noah
 Hey Derek,
 
 Thanks for taking the time to chat today — took a walk and thought about this after our call and chatted with Noah on the phone about this one, tl;dr I don't think we'll be able to move forward here. 
